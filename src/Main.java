@@ -91,11 +91,14 @@ public class Main {
 				}
 				
 				System.out.println();
-				scanner.close();
+//				scanner.close();		ADD THIS TO END WHEN FINISHED
 				
 				// Generate new password
 				Password password = new Password(length, uppercase, lowercase, digits, specialChars);
 				System.out.println("Your new password is: " + password.generatePassword());
+				System.out.println();
+				
+				System.out.println("Would you like to add this password to an existing database or new database?");
 				break;
 				
 			} catch(Exception e) {
