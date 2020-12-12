@@ -1,7 +1,7 @@
 /**
- * 
+ * 	Generate password based on user inputs
  */
-
+		
 /**
  * @author Tim Shea
  *
@@ -71,6 +71,12 @@ public class Password {
 	public String getCharacters() {
 		
 		char character = (char) (random.nextInt(15) + 33);
+		
+		// Make sure character doesn't equal ',' in order to work with csv file
+		while (character == ',') {
+			character = (char) (random.nextInt(15) + 33);
+		}
+		
 		return String.valueOf(character);
 	}
 }
