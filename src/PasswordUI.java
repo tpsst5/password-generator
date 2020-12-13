@@ -23,7 +23,6 @@ public class PasswordUI {
 		while (true) {
 			try {
 				System.out.println("Enter to start...");
-				if (scanner.nextLine().equals("exit")) break;
 				
 				// Get length of password
 				System.out.print("Password length?(5 - 20 characters) ");

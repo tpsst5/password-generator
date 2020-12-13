@@ -16,15 +16,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class PasswordFile {
-	private String csvFile;
+	private String txtFile;
 	
 	
 	public PasswordFile() {
-		this.csvFile = "passwords.txt";
+		this.txtFile = "passwords.txt";
 	}
 	
 	public void addPassword(String label, String password) {
-		try (FileWriter fw = new FileWriter(this.csvFile, true);
+		try (FileWriter fw = new FileWriter(this.txtFile, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter pw = new PrintWriter(bw);) {
 			
@@ -37,7 +37,7 @@ public class PasswordFile {
 	}
 	
 	public void listPasswords () {
-		try (Scanner scanner = new Scanner(Paths.get(this.csvFile))) {
+		try (Scanner scanner = new Scanner(Paths.get(this.txtFile))) {
 			while (scanner.hasNextLine()) {
 				String row = scanner.nextLine();
 				System.out.println(row);
@@ -50,7 +50,7 @@ public class PasswordFile {
 	
 	public void findPassword (String label) {
 		System.out.println("Search results:");
-		try (Scanner scanner = new Scanner(Paths.get(this.csvFile))) {
+		try (Scanner scanner = new Scanner(Paths.get(this.txtFile))) {
 			while (scanner.hasNextLine()) {
 				String row = scanner.nextLine();
 				// Check if current row contains the input label
@@ -65,11 +65,11 @@ public class PasswordFile {
 	}
 	
 	public void deletePassword (String label) {
-		File oldFile = new File(this.csvFile);
+		File oldFile = new File(this.txtFile);
 		File temp = new File("temp.txt");
 		Scanner scanner = new Scanner(System.in);
 		
-		try (Scanner fileScanner = new Scanner(Paths.get(this.csvFile));
+		try (Scanner fileScanner = new Scanner(Paths.get(this.txtFile));
 				FileWriter fw = new FileWriter(temp, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter pw = new PrintWriter(bw);) {
@@ -95,7 +95,7 @@ public class PasswordFile {
 		}			
 		
 		oldFile.delete();
-		File dump = new File(this.csvFile);
+		File dump = new File(this.txtFile);
 		temp.renameTo(dump);
 		scanner.close();
 	}
