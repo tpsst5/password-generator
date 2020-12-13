@@ -36,7 +36,7 @@ public class Main {
 			System.out.println();
 			file.findPassword(label);
 		} else if (command.equals("delete")) {
-			System.out.println("Password to delete? ");
+			System.out.print("Password to delete? ");
 			String inputLabel = scanner.nextLine();
 			System.out.println();
 			file.deletePassword(inputLabel);
@@ -48,5 +48,6 @@ public class Main {
 			System.out.println("Invalid command");
 		}
 		
+		scanner.close();
 	}
 }

@@ -6,10 +6,12 @@
  * @author Tim Shea
  *
  */
+
 import java.util.Scanner;
 import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -40,6 +42,7 @@ public class PasswordFile {
 				String row = scanner.nextLine();
 				System.out.println(row);
 			}
+			
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
@@ -55,26 +58,45 @@ public class PasswordFile {
 					System.out.println(row);
 				}
 			}
+			
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}		
 	}
 	
 	public void deletePassword (String label) {
-		try (Scanner scanner = new Scanner(Paths.get(this.csvFile))) {
-			while (scanner.hasNextLine()) {
-				String row = scanner.nextLine();
+		File oldFile = new File(this.csvFile);
+		File temp = new File("temp.txt");
+		Scanner scanner = new Scanner(System.in);
+		
+		try (Scanner fileScanner = new Scanner(Paths.get(this.csvFile));
+				FileWriter fw = new FileWriter(temp, true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter pw = new PrintWriter(bw);) {
+			while (fileScanner.hasNextLine()) {
+				String row = fileScanner.nextLine();
 				// Check if current row contains the input label
 				if (row.contains(label)) {
-					System.out.println("Delete " + row + " (y/n)?");
+					System.out.print("Delete " + row + " (y/n)? ");
 					String answer = scanner.nextLine();
-					if (answer.equals("y")) {
-						// remove row  ADDD THISS LAATTERRRRRR!!!!!!
+					// Copy current line into temp file if current isn't to be deleted
+					if (answer.equals("n")) {
+						pw.println(row);
+					} else {
+						System.out.println(row + " deleted.");
 					}
+				} else {
+					pw.println(row);
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			
+		} catch (IOException i) {
+			i.printStackTrace();
 		}			
+		
+		oldFile.delete();
+		File dump = new File(this.csvFile);
+		temp.renameTo(dump);
+		scanner.close();
 	}
 }
