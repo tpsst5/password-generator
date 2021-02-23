@@ -1,26 +1,28 @@
-/**
- * 	UI for generating a new password
- */
-
-/**
- * @author Tim Shea
- *
- */
 import java.util.Scanner;
 
-
+/**
+ * UI class that gets the user parameters for a new password.
+ * 
+ * Password Generator App - PasswordUI.java
+ * @author Tim Shea
+ * @version 2/22/2021
+ **/
 public class PasswordUI {
 	private Scanner scanner;
 	
 	/**
-	 * 
+	 * Constructor that instantiates a new keyboard input scanner.
 	 */
 	public PasswordUI() {
 		this.scanner = new Scanner(System.in);
 	}
 	
+   /**
+    * Driver class that gets the user to input parameters needed to 
+    * generate a new password.
+    **/ 
 	public void startUI() {
-		while (true) {
+      while (true) {
 			try {
 				System.out.println("Enter to start...");
 				
@@ -87,7 +89,8 @@ public class PasswordUI {
 				
 				// Get special characters requirement choice
 				System.out.println();
-				System.out.print("Special characters (!, %, $, #, etc.) needed(y/n)? ");
+				System.out.print("Special characters (!, %, $, #, etc.) "
+                  + "needed(y/n)? ");
 				response = scanner.nextLine();
 				boolean specialChars;
 				
@@ -103,9 +106,11 @@ public class PasswordUI {
 				}
 				
 				// Check to see if no inputs were selected
-				if (uppercase == false && lowercase == false && digits == false && specialChars == false) {
+				if (uppercase == false && lowercase == false && 
+                     digits == false && specialChars == false) {
 					System.out.println();
-					System.out.println("At least one password requirement needed.");
+					System.out.println("At least one password requirement"
+                     + " needed.");
 					this.startUI();
 					break;
 				}
@@ -113,7 +118,8 @@ public class PasswordUI {
 				System.out.println();
 				
 				// Generate new password
-				Password passwordVariables = new Password(length, uppercase, lowercase, digits, specialChars);
+				Password passwordVariables = new Password(length, uppercase, 
+                  lowercase, digits, specialChars);
 				String password = passwordVariables.generatePassword();
 				System.out.println("Your new password is: " + password);
 				System.out.println();
